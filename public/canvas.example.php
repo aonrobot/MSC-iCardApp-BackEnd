@@ -113,7 +113,10 @@
 		?>
 		
 		function init(){
-			
+			var canvas = document.getElementById("myCanvas");
+			var ctx = canvas.getContext("2d");
+
+			var card = {'width' : 531 , 'height' : 325}
 
 			ctx.beginPath();
 			ctx.rect(0, 0, card.width, card.height);
@@ -131,7 +134,7 @@
 			//Section 1 NameTH, NameEN, Position
 			var midHoCard = canvas.width/12.2
 			var startHeightCard = 75;
-			
+
 			ctx.font = "lighter 32px sarabunNew";
 			ctx.fillStyle = "black";
 			ctx.fillText("<?php echo $nTH; ?> <?php echo $lnTH; ?>",midHoCard, startHeightCard);

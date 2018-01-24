@@ -24,6 +24,8 @@ class EmployeeController extends Controller
     public function info($login){
         $data = Employee::where('Login', $login)->where('WorkingStatus', '1')->get();
         foreach($data as $d){
+            $d['FirstNameEng'] = ucfirst(strtolower($d['FirstNameEng']));
+            $d['LastNameEng'] = ucfirst(strtolower($d['LastNameEng']));
             $d['phoneDir'] = '02-289-' . substr($d['Phone3'],1);
         }
         if(count($data) <= 0){
