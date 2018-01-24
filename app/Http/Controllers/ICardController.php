@@ -42,6 +42,31 @@ class ICardController extends Controller
         ], 200); 
     }
 
+    public function fakeGet(){
+        
+        $app = app();
+        $fakeData = $app->make('stdClass');
+        $fakeData->company = 'MSC'; 
+        $fakeData->companyName = 'Metro Systems Corporation Public Company Limited';       
+        $fakeData->nameTH = 'ภูสิทธ์';
+        $fakeData->lastnameTH = 'กิติธียานุลกดฟหก';
+        $fakeData->nameEN = 'Pusit';
+        $fakeData->lastnameEN = 'Kittidasda';
+        $fakeData->position = 'CEO Web Designer';
+        $fakeData->department = 'Home';
+        $fakeData->contactTel = '02-222-2548';
+        $fakeData->contactFax = '02-222-2548';
+        $fakeData->contactDir = '085-299-0414';
+        $fakeData->email = 'pusitkit@metrosystems.co.th';
+
+        return response()->json([
+            'status' => '200',
+            'event' => 'Get card detail',
+            'result' => true,
+            'data' => $fakeData
+        ], 200);
+    }
+
     public function get($id){
         $card = DB::connection('iCard')->table('cards')->where('id', $id)->get();
 

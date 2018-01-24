@@ -37,6 +37,7 @@ $router->group(['prefix' => 'api/card'], function() use ($router){
     $router->post('create', ['uses' => 'ICardController@create']);   
     $router->post('delete', ['uses' => 'ICardController@delete']);   
     $router->get('of/{username}', ['uses' => 'ICardController@of']);
+    $router->get('fake', ['uses' => 'ICardController@fakeGet']);
+    
     $router->get('/{id}', ['uses' => 'ICardController@get']);   
-       
 });
