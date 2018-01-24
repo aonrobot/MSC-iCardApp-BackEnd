@@ -48,11 +48,10 @@
         
     <div class="container">
         <div class="card p-1">
-        <img src="/images/bg_card.png" alt="" width="100%" id="card"  style="display: block">  
+        <img src="/images/bg_card.png" alt="" width="100%" id="card"  style="display: block;">  
         <div id="canvas"></div>
-        <!-- <canvas id="myCanvas" style="width:100%;"></canvas>  -->
         <div class="card-block">
-            <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+            
             <!-- IMG Insert Here  -->
             <div class="m-1 p-1">
                 <div class="btn-panel p-1 float-left">
@@ -65,7 +64,7 @@
         </div>
         </div>
     </div>
-    
+
 </body>
 <script
   src="https://code.jquery.com/jquery-3.3.1.js"
@@ -73,7 +72,6 @@
   crossorigin="anonymous"></script>
 <script>
 
-    
         
     var data ;
     $.ajax({
@@ -84,7 +82,7 @@
         });
 
     var img = document.getElementById("card");        
-        
+
     $('#canvas').html( `
         <canvas id = 'myCanvas' width='${ img.offsetWidth }px' height = '${ img.offsetHeight }px'></canvas>
     `);
@@ -94,6 +92,7 @@
         canvas.height = img.offsetHeight;
 
         img.style.display = "none";
+        
 	var ctx = canvas.getContext("2d");
         ctx.drawImage(img, 0,0,canvas.width,canvas.height);
 
@@ -130,10 +129,17 @@
 		ctx.fillText(data.companyName, canvas.width / 8, canvas.height / 1.5);
     
     // Logo 
-        
-      
-    
-    
+    var imageList = ['HIS','MCC','MID','MSC'];
+        imageList = imageList.map(function(x){ return x.toLowerCase() });
+    var image ;
+    if( imageList.indexOf(data.company.toLowerCase()) === -1 ){
+        image = 'MSC';
+    }else {
+        image = data.company;
+    }
+
+ 
+
     var dataURL = canvas.toDataURL(); 
     img.style.display = 'block';
     img.src = dataURL;

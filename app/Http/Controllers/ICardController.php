@@ -46,7 +46,7 @@ class ICardController extends Controller
         
         $app = app();
         $fakeData = $app->make('stdClass');
-        $fakeData->company = 'MSC'; 
+        $fakeData->company = 'MCC'; 
         $fakeData->companyName = 'Metro Systems Corporation Public Company Limited';       
         $fakeData->nameTH = 'ภูสิทธ์';
         $fakeData->lastnameTH = 'กิติธียานุลกดฟหก';
