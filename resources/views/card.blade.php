@@ -6,6 +6,6 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>{{$card->company}}</h1>
+    <h1>{{$card->nameTH}}</h1>
 </body>
 </html>
