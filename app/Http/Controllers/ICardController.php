@@ -42,11 +42,19 @@ class ICardController extends Controller
         ], 200); 
     }
 
+    private function findCompanyNameByCode($code){
+        $company_name = DB::connection('iCard')->table('company')->where('company_code', $code)->select(['company_name'])->get();
+        $company_name = (count($company_name) <= 0) ? $code : $company_name[0]->company_name;
+        return $company_name;
+    }
+
     public function get($id){
         $card = DB::connection('iCard')->table('cards')->where('id', $id)->get();
 
         foreach($card as $c){
             $c->qrcode_url = $this->QRCODE_API_url . $this->CARD_url . '?id=' . $c->id . $this->QRCORD_API_charset;
+
+            $c->companyName = $this->findCompanyNameByCode($c->company);
         }
 
         return response()->json([
@@ -63,6 +71,8 @@ class ICardController extends Controller
 
         foreach($cards as $card){
             $card->avatar_url = $this->QRCODE_API_url . $this->CARD_url . '?id=' . $card->id . $this->QRCORD_API_charset;
+
+            $card->companyName = $this->findCompanyNameByCode($card->company);
         }
 
         return response()->json([
@@ -116,7 +126,7 @@ class ICardController extends Controller
     }
 
     public function delete(Request $request){
-        
+
         $userLogin = $request->input('username');
         $cardId = $request->input('cardId');
 
