@@ -33,7 +33,7 @@ $router->group(['prefix' => 'api/ldap'], function() use ($router){
 
 //iCard API
 $router->group(['prefix' => 'api/card'], function() use ($router){
-    $router->get('last', ['uses' => 'ICardController@last']);        
+    $router->get('nextId', ['uses' => 'ICardController@nextId']);        
     $router->post('create', ['uses' => 'ICardController@create']);   
     $router->post('delete', ['uses' => 'ICardController@delete']);   
     $router->get('of/{username}', ['uses' => 'ICardController@of']);
