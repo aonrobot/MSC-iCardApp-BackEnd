@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>QR LAB</title>
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/icard/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
     <style>
       
@@ -48,7 +48,7 @@
         
     <div class="container">
         <div class="card p-1">
-        <img src="/images/bg_card.png" alt="" width="100%" id="card"  style="display: block;">  
+        <img src="/icard/images/bg_card.png" alt="" width="100%" id="card"  style="display: block;">  
         <div id="canvas"></div>
         <div class="card-block">
             
@@ -56,7 +56,7 @@
             <div class="m-1 p-1">
                 <div class="btn-panel p-1 float-left">
                     <!-- BUTTON!!! -->
-                    <img src="/images/geature.svg" alt="Tab+Hold to save Card" width="100%"/>   
+                    <img src="/icard/images/geature.svg" alt="Tab+Hold to save Card" width="100%"/>   
 
                 </div>
                 <p class="float-left p-1 m-1">Tab + Hold to save card</p>
@@ -71,79 +71,89 @@
   integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
   crossorigin="anonymous"></script>
 <script>
+    
+    var cardId = window.location.href.split('/')
 
+    console.log(cardId)
         
     var data ;
     $.ajax({
-        url: "/api/card/fake",
+        url: `/icard/api/card/${cardId[5]}`,
         async : false
         }).done(function (res) {
-           data = res.data; 
+           data = res.data[0]; 
         });
 
-    var img = document.getElementById("card");        
+    console.log(data)
+    
+    if(data !== undefined){
 
-    $('#canvas').html( `
-        <canvas id = 'myCanvas' width='${ img.offsetWidth }px' height = '${ img.offsetHeight }px'></canvas>
-    `);
+        var img = document.getElementById("card");        
 
-    var canvas = document.getElementById("myCanvas");
-        canvas.width = img.offsetWidth;
-        canvas.height = img.offsetHeight;
+        $('#canvas').html( `
+            <canvas id = 'myCanvas' width='${ img.offsetWidth }px' height = '${ img.offsetHeight }px'></canvas>
+        `);
 
-        img.style.display = "none";
+        var canvas = document.getElementById("myCanvas");
+            canvas.width = img.offsetWidth;
+            canvas.height = img.offsetHeight;
+
+            img.style.display = "none";
+            
+        var ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0,0,canvas.width,canvas.height);
+
+        //  THAI NAME 
+            ctx.font = "lighter 3vw sarabunNew";
+            ctx.fillStyle = "black";
+            ctx.fillText(data.nameTH + '  ' + data.lastnameTH, canvas.width/10, canvas.height/5);
         
-	var ctx = canvas.getContext("2d");
-        ctx.drawImage(img, 0,0,canvas.width,canvas.height);
+        // ENG NAME 
 
-    //  THAI NAME 
-		ctx.font = "lighter 3vw sarabunNew";
-		ctx.fillStyle = "black";
-		ctx.fillText(data.nameTH + '  ' + data.lastnameTH, canvas.width/10, canvas.height/5);
+            ctx.font = "bold 3vw Quicksand";
+            ctx.fillStyle = "black";
+            ctx.fillText(data.nameEN + '  ' + data.lastnameEN, canvas.width/10, canvas.height/3.5);
+        
+        // POSITION
     
-    // ENG NAME 
+            ctx.fillStyle = "#0364b1";
+            ctx.fillText(data.position, canvas.width/10, canvas.height/2.7);
+        
+        // TEL
+            ctx.font = " 2vw Quicksand";
+            ctx.fillStyle = "black";
+            ctx.fillText('Tel : ' + data.contactTel + '  Fax : ' +  data.contactFax, canvas.width/ 8, canvas.height/2.15);
+            ctx.fillText('Dir : ' + data.contactDir , canvas.width / 8, canvas.height / 1.95);
+        
+        // EMAIL
 
-        ctx.font = "bold 3vw Quicksand";
-		ctx.fillStyle = "black";
-		ctx.fillText(data.nameEN + '  ' + data.lastnameEN, canvas.width/10, canvas.height/3.5);
-    
-    // POSITION
-  
-		ctx.fillStyle = "#0364b1";
-		ctx.fillText(data.position, canvas.width/10, canvas.height/2.7);
-    
-    // TEL
-        ctx.font = " 2vw Quicksand";
-        ctx.fillStyle = "black";
-		ctx.fillText('Tel : ' + data.contactTel + '  Fax : ' +  data.contactFax, canvas.width/ 8, canvas.height/2.15);
-        ctx.fillText('Dir : ' + data.contactDir , canvas.width / 8, canvas.height / 1.95);
-    
-    // EMAIL
+            ctx.fillText(data.email, canvas.width / 8, canvas.height / 1.79);
+        
+        // Company
 
-		ctx.fillText(data.email, canvas.width / 8, canvas.height / 1.79);
-    
-    // Company
+            ctx.font = "bold 2vw sarabunNew";
+            ctx.fillStyle = "black";
+            ctx.fillText(data.companyName, canvas.width / 8, canvas.height / 1.5);
+        
+        // Logo 
+        var imageList = ['HIS','MCC','MID','MSC'];
+            imageList = imageList.map(function(x){ return x.toLowerCase() });
+        var image ;
+        if( imageList.indexOf(data.company.toLowerCase()) === -1 ){
+            image = 'MSC';
+        }else {
+            image = data.company;
+        }
 
-        ctx.font = "bold 2vw sarabunNew";
-        ctx.fillStyle = "black";
-		ctx.fillText(data.companyName, canvas.width / 8, canvas.height / 1.5);
     
-    // Logo 
-    var imageList = ['HIS','MCC','MID','MSC'];
-        imageList = imageList.map(function(x){ return x.toLowerCase() });
-    var image ;
-    if( imageList.indexOf(data.company.toLowerCase()) === -1 ){
-        image = 'MSC';
-    }else {
-        image = data.company;
+
+        var dataURL = canvas.toDataURL(); 
+        img.style.display = 'block';
+        img.src = dataURL;
+        canvas.style.display = 'none'
     }
 
- 
-
-    var dataURL = canvas.toDataURL(); 
-    img.style.display = 'block';
-    img.src = dataURL;
-	canvas.style.display = 'none'
+    
     
 </script>
 </html>

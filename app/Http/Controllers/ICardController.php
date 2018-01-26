@@ -17,7 +17,7 @@ class ICardController extends Controller
      */
     public function __construct()
     {
-        $this->CARD_url = 'http://mis_test.metrosystems.co.th/qrlab/business_card/genCard.php';
+        $this->CARD_url = 'https://fora.metrosystems.co.th/icard/card/';
         $this->QRCODE_API_url = "https://chart.googleapis.com/chart?cht=qr&chs=350x350&chl=";
         $this->QRCORD_API_charset = "&choe=UTF-8";
     }
@@ -26,7 +26,7 @@ class ICardController extends Controller
         return response()->json(Employee::all());
     }
 
-    public function last(){
+    public function nextId(){
         $lastId = DB::connection('iCard')->table('cards')->select(['id'])->orderBy('id', 'desc')->take(1)->get()[0]->id;
 
         return response()->json([
@@ -34,8 +34,8 @@ class ICardController extends Controller
             'event' => 'Get Last Card ID',
             'result' => true,
             'data' => [
-                'CARD_url' => $this->CARD_url,
-                'CARD_id' => intval($lastId),
+                'CARD_url' => $this->CARD_url . (intval($lastId) + 1),
+                'CARD_id' => intval($lastId) + 1,
                 'QRCODE_API_url' => $this->QRCODE_API_url,
                 'QRCORD_API_charset' => $this->QRCORD_API_charset
             ]
@@ -77,7 +77,7 @@ class ICardController extends Controller
         $card = DB::connection('iCard')->table('cards')->where('id', $id)->get();
 
         foreach($card as $c){
-            $c->qrcode_url = $this->QRCODE_API_url . $this->CARD_url . '?id=' . $c->id . $this->QRCORD_API_charset;
+            $c->qrcode_url = $this->QRCODE_API_url . $this->CARD_url . $c->id . $this->QRCORD_API_charset;
 
             $c->companyName = $this->findCompanyNameByCode($c->company);
         }
@@ -95,7 +95,7 @@ class ICardController extends Controller
                     ->where('userLogin', $username)->where('isDelete','!=',true)->get();
 
         foreach($cards as $card){
-            $card->avatar_url = $this->QRCODE_API_url . $this->CARD_url . '?id=' . $card->id . $this->QRCORD_API_charset;
+            $card->avatar_url = $this->QRCODE_API_url . $this->CARD_url  . $card->id . $this->QRCORD_API_charset;
 
             $card->companyName = $this->findCompanyNameByCode($card->company);
         }
@@ -147,7 +147,7 @@ class ICardController extends Controller
             ]
         );
 
-        return response()->json(['status' => '200', 'event' => 'Create New Card', 'result' => true, 'data' => ['CARD_url' => $this->CARD_url, 'CARD_id' => $id]], 200);
+        return response()->json(['status' => '200', 'event' => 'Create New Card', 'result' => true, 'data' => ['CARD_url' => $this->CARD_url . $id, 'CARD_id' => $id]], 200);
     }
 
     public function delete(Request $request){
