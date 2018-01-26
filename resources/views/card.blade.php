@@ -21,7 +21,7 @@
             color : #ffffff;
             font-family: 'Quicksand', sans-serif;
             font-size : 20px;
-
+            padding-top: 35px;
         }
         .card {
             box-shadow:0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
@@ -50,6 +50,11 @@
         <div class="card p-1">
         <img src="/images/bg_card.png" alt="" width="100%" id="card"  style="display: block;">  
         <div id="canvas"></div>
+        {{--  LogoImage  --}}
+        <div style="display:none;">
+            <img src="/images/company/MCC.png"  id ="logoImage"/>
+        </div>
+
         <div class="card-block">
             
             <!-- IMG Insert Here  -->
@@ -57,14 +62,13 @@
                 <div class="btn-panel p-1 float-left">
                     <!-- BUTTON!!! -->
                     <img src="/images/geature.svg" alt="Tab+Hold to save Card" width="100%"/>   
-
                 </div>
                 <p class="float-left p-1 m-1">Tab + Hold to save card</p>
             </div>
         </div>
         </div>
     </div>
-
+   
 </body>
 <script
   src="https://code.jquery.com/jquery-3.3.1.js"
@@ -82,9 +86,9 @@
         });
 
     var img = document.getElementById("card");        
-
+       
     $('#canvas').html( `
-        <canvas id = 'myCanvas' width='${ img.offsetWidth }px' height = '${ img.offsetHeight }px'></canvas>
+        <canvas id = 'myCanvas' width='${ img.offsetWidth }px' height = '${ img.offsetHeight }px'>Your browser does not support the HTML5 canvas tag.</canvas>
     `);
 
     var canvas = document.getElementById("myCanvas");
@@ -137,8 +141,31 @@
     }else {
         image = data.company;
     }
+   
+    /*var logoImage = document.getElementById('logoImage');
+        logoImage.src = `/images/company/${image}.png`;
 
- 
+    var widthLogoImage = canvas.width * 0.94
+    var heightLogoImage = canvas.height * 0.86
+
+    var MCC_Woffer = canvas.width * 0.618
+    var MCC_Hoffer = canvas.height * 0.538
+
+    console.log(canvas.width, canvas.height)
+
+    ctx.drawImage(
+        logoImage, 
+        0, 
+        0, 
+        widthLogoImage,
+        heightLogoImage , 
+
+        canvas.width - logoImage.width , 
+        canvas.height - logoImage.height , 
+
+        widthLogoImage - MCC_Woffer,
+        heightLogoImage - MCC_Hoffer ,  
+    );*/
 
     var dataURL = canvas.toDataURL(); 
     img.style.display = 'block';
