@@ -16,6 +16,9 @@ $router->get('/', function () use ($router) {
 });
 
 $router->get('/card/{id}', ['uses' => 'frontController@card']);
+$router->get('/download', function(){
+    return view('download');
+});
 
 $router->group(['prefix' => 'api'], function() use ($router){
     $router->get('employee', ['uses' => 'EmployeeController@all']);
