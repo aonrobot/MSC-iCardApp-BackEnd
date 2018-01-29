@@ -38,11 +38,6 @@ class frontController extends Controller
 
         $card = json_decode($card->content(), true);
 
-        if(count($card) <= 0){
-            return "ไม่พบ card นี้";
-        }else{
-            $card = $card['data'][0];
-        }
 
         /*$app = app();
         $fakeData = $app->make('stdClass');
@@ -66,6 +61,18 @@ class frontController extends Controller
 
         //Init
         $box = new Box($im);
+
+        if(count($card['data']) <= 0){
+            $box->setFontFace('./fonts/THSarabunNew Bold.ttf');
+            $box->setFontColor(new Color(73, 73, 73));
+            $box->setFontSize(180);
+            $box->setBox(250, 250, 1200, 460);
+            $box->draw('ไม่พบใบ card นี้');
+            imagepng($im);
+            imagedestroy($im);
+        }else{
+            $card = $card['data'][0];
+        }
 
         //Name Thai
         $box->setFontFace('./fonts/THSarabunNew.ttf');
