@@ -18,11 +18,13 @@
 $router->get('/', function(){
     return view('download');
 });
-
-$router->get('/card/{id}', ['uses' => 'frontController@card']);
 $router->get('/download', function(){
     return view('download');
 });
+
+$router->get('/card/{id}', ['uses' => 'frontController@card']);
+$router->get('/card/image/{id}', ['uses' => 'frontController@cardImage']);
+
 
 $router->group(['prefix' => 'api'], function() use ($router){
     $router->get('employee', ['uses' => 'EmployeeController@all']);
@@ -52,5 +54,5 @@ $router->group(['prefix' => 'api/card'], function() use ($router){
     $router->get('of/{username}', ['uses' => 'ICardController@of']);
     $router->get('fake', ['uses' => 'ICardController@fakeGet']);
     
-    $router->get('/{id}', ['uses' => 'ICardController@get']);   
+    $router->get('/{id}', ['uses' => 'ICardController@get']);
 });
