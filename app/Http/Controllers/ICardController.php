@@ -42,31 +42,6 @@ class ICardController extends Controller
         ], 200); 
     }
 
-    public function fakeGet(){
-        
-        $app = app();
-        $fakeData = $app->make('stdClass');
-        $fakeData->company = 'MCC'; 
-        $fakeData->companyName = 'Metro Systems Corporation Public Company Limited';       
-        $fakeData->nameTH = 'ภูสิทธ์';
-        $fakeData->lastnameTH = 'กิติธียานุลกดฟหก';
-        $fakeData->nameEN = 'Pusit';
-        $fakeData->lastnameEN = 'Kittidasda';
-        $fakeData->position = 'CEO Web Designer';
-        $fakeData->department = 'Home';
-        $fakeData->contactTel = '02-222-2548';
-        $fakeData->contactFax = '02-222-2548';
-        $fakeData->contactDir = '085-299-0414';
-        $fakeData->email = 'pusitkit@metrosystems.co.th';
-
-        return response()->json([
-            'status' => '200',
-            'event' => 'Get card detail',
-            'result' => true,
-            'data' => $fakeData
-        ], 200);
-    }
-
     private function findCompanyNameByCode($code){
         $company_name = DB::connection('iCard')->table('company')->where('company_code', $code)->select(['company_name'])->get();
         $company_name = (count($company_name) <= 0) ? $code : $company_name[0]->company_name;
@@ -108,9 +83,9 @@ class ICardController extends Controller
         ], 200); 
     }
 
-    public function create($userLogin, $company, $nameTH, $lastnameTH, $nameEN, $lastnameEN, $position, $department, $contactTel, $contactDir, $contactFax, $email){ //Request $request
+    public function create(Request $request){ //$userLogin, $company, $nameTH, $lastnameTH, $nameEN, $lastnameEN, $position, $department, $contactTel, $contactDir, $contactFax, $email
 
-        /*$userLogin = $request->input('u');
+        $userLogin = $request->input('u');
 
         $company = $request->input('c');
 
@@ -126,22 +101,22 @@ class ICardController extends Controller
         $contactDir = $request->input('cD');
         $contactFax = $request->input('cF');
 
-        $email = $request->input('e');*/
+        $email = $request->input('e');
 
         $id = DB::connection('iCard')->table('cards')->insertGetId(
             [
                 'userLogin' => $userLogin,
                 'company' => $company,
-                'nameTH' => urldecode($nameTH),
-                'lastnameTH' => urldecode($lastnameTH),
+                'nameTH' => $nameTH,
+                'lastnameTH' => $lastnameTH,
                 'nameEN' => $nameEN,
                 'lastnameEN' => $lastnameEN,
-                'position' => urldecode($position),
-                'department' => urldecode($department),
-                'contactTel' => urldecode($contactTel), 
-                'contactDir' => urldecode($contactDir),
-                'contactFax' => urldecode($contactFax),
-                'email' => urldecode($email),
+                'position' => $position,
+                'department' => $department,
+                'contactTel' => $contactTel, 
+                'contactDir' => $contactDir,
+                'contactFax' => $contactFax,
+                'email' => $email,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ]
@@ -150,12 +125,12 @@ class ICardController extends Controller
         return response()->json(['status' => '200', 'event' => 'Create New Card', 'result' => true, 'data' => ['CARD_url' => $this->CARD_url . $id, 'CARD_id' => $id]], 200);
     }
 
-    public function delete($userLogin, $cardId){ //Request $request
+    public function delete(Request $request){ //$userLogin, $cardId
 
-        /*$userLogin = $request->input('username');
-        $cardId = $request->input('cardId');*/
+        $userLogin = $request->input('username');
+        $cardId = $request->input('cardId');
 
-        DB::connection('iCard')->table('cards')->where('id', $cardId)->update(['isDelete' => true]);
+        DB::connection('iCard')->table('cards')->where('id', $cardId)->where('userLogin', $userLogin)->update(['isDelete' => true]);
 
         return response()->json(['status' => '200', 'event' => 'Delete Card', 'result' => true], 200);
     }

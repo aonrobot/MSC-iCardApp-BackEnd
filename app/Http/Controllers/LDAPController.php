@@ -18,14 +18,10 @@ class LDAPController extends Controller
         //
     }
 
-    public function checkAuth($username, $password){ // Request $request
+    public function checkAuth(Request $request){ // $username, $password
 
-        //Fix Nginx before
-        /*$username = $request->input('username');
-        $password = $request->input('password');*/
-
-        $user = urldecode($username); 
-        $pwd = urldecode($password);
+        $user = $request->input('username');
+        $pwd = $request->input('password');
         
         // Construct new Adldap instance.
         $ad = new Adldap();
