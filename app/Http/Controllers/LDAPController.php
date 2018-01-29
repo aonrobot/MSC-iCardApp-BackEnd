@@ -18,10 +18,14 @@ class LDAPController extends Controller
         //
     }
 
-    public function checkAuth(Request $request){
+    public function checkAuth($username, $password){ // Request $request
 
-        $username = $request->input('username');
-        $password = $request->input('password');
+        //Fix Nginx before
+        /*$username = $request->input('username');
+        $password = $request->input('password');*/
+
+        $user = urldecode($username); 
+        $pwd = urldecode($password);
         
         // Construct new Adldap instance.
         $ad = new Adldap();
@@ -50,7 +54,7 @@ class LDAPController extends Controller
 
             $provider = $ad->connect();
 
-            if ($provider->auth()->attempt($username, $password)) {
+            if ($provider->auth()->attempt($user, $pwd)) {
                 return response()->json(['status' => '200', 'event' => 'check AD Auth', 'result' => true], 200);
             } else {
                 return response()->json(['status' => '200', 'event' => 'check AD Auth', 'result' => false], 200);

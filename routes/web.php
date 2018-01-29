@@ -11,8 +11,12 @@
 |
 */
 
-$router->get('/', function () use ($router) {
+/*$router->get('/', function () use ($router) {
     return $router->app->version();
+});*/
+
+$router->get('/', function(){
+    return view('download');
 });
 
 $router->get('/card/{id}', ['uses' => 'frontController@card']);
@@ -31,14 +35,20 @@ $router->group(['prefix' => 'api'], function() use ($router){
 //ldap API
 $router->group(['prefix' => 'api/ldap'], function() use ($router){
 
-    $router->post('checkAuth', ['uses' => 'LDAPController@checkAuth']);    
+    //$router->post('checkAuth', ['uses' => 'LDAPController@checkAuth']);    
+    $router->get('checkAuth/{username}/{password}', ['uses' => 'LDAPController@checkAuth']);    
 });
 
 //iCard API
 $router->group(['prefix' => 'api/card'], function() use ($router){
-    $router->get('nextId', ['uses' => 'ICardController@nextId']);        
-    $router->post('create', ['uses' => 'ICardController@create']);   
-    $router->post('delete', ['uses' => 'ICardController@delete']);   
+    $router->get('nextId', ['uses' => 'ICardController@nextId']);
+
+    /*$router->post('create', ['uses' => 'ICardController@create']);   
+    $router->post('delete', ['uses' => 'ICardController@delete']);*/
+
+    $router->get('create/{userLogin}/{company}/{nameTH}/{lastnameTH}/{nameEN}/{lastnameEN}/{position}/{department}/{contactTel}/{contactDir}/{contactFax}/{email}', ['uses' => 'ICardController@create']);   
+    $router->get('delete/{userLogin}/{cardId}', ['uses' => 'ICardController@delete']);
+
     $router->get('of/{username}', ['uses' => 'ICardController@of']);
     $router->get('fake', ['uses' => 'ICardController@fakeGet']);
     

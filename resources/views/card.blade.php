@@ -116,7 +116,7 @@
         
         // ENG NAME 
 
-            ctx.font = "bold 3vw Quicksand";
+            ctx.font = "bold 3vw sarabunNew";
             ctx.fillStyle = "black";
             ctx.fillText(data.nameEN + '  ' + data.lastnameEN, canvas.width/10, canvas.height/3.5);
         
@@ -126,7 +126,7 @@
             ctx.fillText(data.position, canvas.width/10, canvas.height/2.7);
         
         // TEL
-            ctx.font = " 2vw Quicksand";
+            ctx.font = " 2vw sarabunNew";
             ctx.fillStyle = "black";
             ctx.fillText('Tel : ' + data.contactTel + '  Fax : ' +  data.contactFax, canvas.width/ 8, canvas.height/2.15);
             ctx.fillText('Dir : ' + data.contactDir , canvas.width / 8, canvas.height / 1.95);

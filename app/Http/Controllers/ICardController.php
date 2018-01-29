@@ -108,9 +108,9 @@ class ICardController extends Controller
         ], 200); 
     }
 
-    public function create(Request $request){
+    public function create($userLogin, $company, $nameTH, $lastnameTH, $nameEN, $lastnameEN, $position, $department, $contactTel, $contactDir, $contactFax, $email){ //Request $request
 
-        $userLogin = $request->input('u');
+        /*$userLogin = $request->input('u');
 
         $company = $request->input('c');
 
@@ -126,22 +126,22 @@ class ICardController extends Controller
         $contactDir = $request->input('cD');
         $contactFax = $request->input('cF');
 
-        $email = $request->input('e');
+        $email = $request->input('e');*/
 
         $id = DB::connection('iCard')->table('cards')->insertGetId(
             [
                 'userLogin' => $userLogin,
                 'company' => $company,
-                'nameTH' => $nameTH,
-                'lastnameTH' => $lastnameTH,
+                'nameTH' => urldecode($nameTH),
+                'lastnameTH' => urldecode($lastnameTH),
                 'nameEN' => $nameEN,
                 'lastnameEN' => $lastnameEN,
-                'position' => $position,
-                'department' => $department,
-                'contactTel' => $contactTel, 
-                'contactDir' => $contactDir,
-                'contactFax' => $contactFax,
-                'email' => $email,
+                'position' => urldecode($position),
+                'department' => urldecode($department),
+                'contactTel' => urldecode($contactTel), 
+                'contactDir' => urldecode($contactDir),
+                'contactFax' => urldecode($contactFax),
+                'email' => urldecode($email),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ]
@@ -150,10 +150,10 @@ class ICardController extends Controller
         return response()->json(['status' => '200', 'event' => 'Create New Card', 'result' => true, 'data' => ['CARD_url' => $this->CARD_url . $id, 'CARD_id' => $id]], 200);
     }
 
-    public function delete(Request $request){
+    public function delete($userLogin, $cardId){ //Request $request
 
-        $userLogin = $request->input('username');
-        $cardId = $request->input('cardId');
+        /*$userLogin = $request->input('username');
+        $cardId = $request->input('cardId');*/
 
         DB::connection('iCard')->table('cards')->where('id', $cardId)->update(['isDelete' => true]);
 

@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>New Age - Start Bootstrap Theme</title>
+    <title>iCard | Metrosystems</title>
 
     <!-- Bootstrap core CSS -->
     <link href="{{\Library\Util::asset('vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
@@ -86,8 +86,9 @@
             <h2 class="section-heading">Discover iCard Now!</h2>
             <p>Our app is available on any mobile device! Download now to get started!</p>
             <div class="badges">
-              <a class="badge-link" href="https://install.appcenter.ms/users/auttawir/apps/android-icarddemo/distribution_groups/dev%20public"><img src="images/google-play-badge.svg" alt=""></a>
-              <a class="badge-link" href="https://install.appcenter.ms/users/auttawir/apps/ios-icarddemo/distribution_groups/dev%20public"><img src="images/app-store-badge.svg" alt=""></a>
+              <a class="badge-link" target="_blank" href="https://install.appcenter.ms/users/auttawir/apps/android-icarddemo/distribution_groups/dev%20public"><img src="images/google-play-badge.svg" alt=""></a>
+              <a class="badge-link" target="_blank" href="https://install.appcenter.ms/users/auttawir/apps/ios-icarddemo/distribution_groups/dev%20public"><img src="images/app-store-badge.svg" alt=""></a>
+              <p class="text-light mt-3">* For iPhone or iPad use Safari to download</p>
             </div>
           </div>
         </div>
