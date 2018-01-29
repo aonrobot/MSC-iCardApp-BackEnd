@@ -38,32 +38,18 @@ class frontController extends Controller
 
         $card = json_decode($card->content(), true);
 
-
-        /*$app = app();
-        $fakeData = $app->make('stdClass');
-        $fakeData->company = 'Metro Systems Corporation Public Company Limited';        
-        $fakeData->nameTH = 'ภูสิทธ์';
-        $fakeData->lastnameTH = 'กิติธียานุลกดฟหก';
-        $fakeData->nameEN = 'Pusit';
-        $fakeData->lastnameEN = 'Kittidasda';
-        $fakeData->position = 'CEO Web Designer';
-        $fakeData->department = 'Home';
-        $fakeData->contactTel = '02-222-2548';
-        $fakeData->contactFax = '02-222-2548';
-        $fakeData->contactDir = '085-299-0414';
-        $fakeData->email = 'pusitkit@metrosystems.co.th';*/
-
         header("Content-type: image/png");
-        $string = "Metrosystems";
         $im     = imagecreatefrompng('./images/bg_card.png');
 
         /////////////////////////////////// Text ////////////////////////////////////
+
+        $font_locate = str_replace('\\app\\Http\\Controllers', '\\public\\', __DIR__);
 
         //Init
         $box = new Box($im);
 
         if(count($card['data']) <= 0){
-            $box->setFontFace('./fonts/THSarabunNew Bold.ttf');
+            $box->setFontFace($font_locate . 'fonts/THSarabunNew Bold.ttf');
             $box->setFontColor(new Color(73, 73, 73));
             $box->setFontSize(180);
             $box->setBox(250, 250, 1200, 460);
@@ -75,27 +61,27 @@ class frontController extends Controller
         }
 
         //Name Thai
-        $box->setFontFace('./fonts/THSarabunNew.ttf');
+        $box->setFontFace($font_locate . 'fonts/THSarabunNew.ttf');
         $box->setFontColor(new Color(73, 73, 73));
         $box->setFontSize(80);
         $box->setBox(145, 120, 1200, 460);
         $box->draw($card['nameTH'] . ' ' . $card['lastnameTH']);
         
         //Name English
-        $box->setFontFace('./fonts/THSarabunNew Bold.ttf');
+        $box->setFontFace($font_locate . 'fonts/THSarabunNew Bold.ttf');
         $box->setBox(145, 200, 1200, 460);
         $box->draw($card['nameEN'] . ' ' . $card['lastnameEN']);
 
         //Position
         $box->setFontColor(new Color(0, 102, 178));
-        $box->setFontFace('./fonts/THSarabunNew Bold.ttf');
+        $box->setFontFace($font_locate . 'fonts/THSarabunNew Bold.ttf');
         $box->setBox(145, 280, 1200, 460);
         $box->draw($card['position']);
 
         //////////////////////////////////////////////////////////////////////////////
 
         //Set font size and color to this section
-        $box->setFontFace('./fonts/THSarabunNew.ttf');
+        $box->setFontFace($font_locate . 'fonts/THSarabunNew.ttf');
         $box->setFontColor(new Color(40, 40, 40));
         $box->setFontSize(46);
         
@@ -114,7 +100,7 @@ class frontController extends Controller
         //////////////////////////////////////////////////////////////////////////////
 
         //Set font size and color to this section
-        $box->setFontFace('./fonts/THSarabunNew Bold.ttf');
+        $box->setFontFace($font_locate . 'fonts/THSarabunNew Bold.ttf');
         $box->setFontColor(new Color(40, 40, 40));
         $box->setFontSize(48);
         
@@ -170,6 +156,7 @@ class frontController extends Controller
 
         imagepng($im);
         imagedestroy($im);
+
     }
 
     //

@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "adldap2/adldap2",
-            "version": "v8.0.10",
+            "version": "v8.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Adldap2/Adldap2.git",
-                "reference": "5ab7df6f24bf952666e926ce5220a21325f8f277"
+                "reference": "5e5518b32f6a328ff19c3599d83f866341d1f1c3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Adldap2/Adldap2/zipball/5ab7df6f24bf952666e926ce5220a21325f8f277",
-                "reference": "5ab7df6f24bf952666e926ce5220a21325f8f277",
+                "url": "https://api.github.com/repos/Adldap2/Adldap2/zipball/5e5518b32f6a328ff19c3599d83f866341d1f1c3",
+                "reference": "5e5518b32f6a328ff19c3599d83f866341d1f1c3",
                 "shasum": ""
             },
             "require": {
@@ -56,7 +56,7 @@
                 "ldap",
                 "windows"
             ],
-            "time": "2018-01-02T14:14:44+00:00"
+            "time": "2018-01-23T13:18:18+00:00"
         },
         {
             "name": "asm89/stack-cors",
@@ -2911,16 +2911,16 @@
         },
         {
             "name": "phpdocumentor/reflection-docblock",
-            "version": "4.2.0",
+            "version": "4.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpDocumentor/ReflectionDocBlock.git",
-                "reference": "66465776cfc249844bde6d117abff1d22e06c2da"
+                "reference": "94fd0001232e47129dd3504189fa1c7225010d08"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/66465776cfc249844bde6d117abff1d22e06c2da",
-                "reference": "66465776cfc249844bde6d117abff1d22e06c2da",
+                "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/94fd0001232e47129dd3504189fa1c7225010d08",
+                "reference": "94fd0001232e47129dd3504189fa1c7225010d08",
                 "shasum": ""
             },
             "require": {
@@ -2958,7 +2958,7 @@
                 }
             ],
             "description": "With this component, a library can provide support for annotations via DocBlocks or otherwise retrieve information that is embedded in a DocBlock.",
-            "time": "2017-11-27T17:38:31+00:00"
+            "time": "2017-11-30T07:14:17+00:00"
         },
         {
             "name": "phpdocumentor/type-resolver",
