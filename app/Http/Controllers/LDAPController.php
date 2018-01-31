@@ -20,10 +20,6 @@ class LDAPController extends Controller
 
     public function checkAuth(Request $request){ // $username, $password
 
-        dd($request->all());
-        //print_r(Input::get('data'));
-        return 0;
-
         $user = $request->input('username');
         $pwd = $request->input('password');
         
