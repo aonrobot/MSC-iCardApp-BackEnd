@@ -26,7 +26,7 @@ class EmployeeController extends Controller
         foreach($data as $d){
             $d['FirstNameEng'] = ucfirst(strtolower($d['FirstNameEng']));
             $d['LastNameEng'] = ucfirst(strtolower($d['LastNameEng']));
-            $d['phoneDir'] = '02-289-' . substr($d['Phone3'],1);
+            $d['phoneDir'] = '02-089-' . substr($d['Phone3'],1);
         }
         if(count($data) <= 0){
             return response()->json(['status' => '200', 'event' => 'get User Info', 'result' => false, 'data' => $data], 200);             

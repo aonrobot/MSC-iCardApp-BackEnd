@@ -122,6 +122,14 @@ class ICardController extends Controller
             ]
         );
 
+        DB::connection('iCard')->table('log')->insertGetId(
+            [
+                'event' => 'Create New Card',
+                'action_table' => 'cards',
+                'action_id' => $userLogin
+            ]
+        );
+
         return response()->json(['status' => '200', 'event' => 'Create New Card', 'result' => true, 'data' => ['CARD_url' => $this->CARD_url . $id, 'CARD_id' => $id]], 200);
     }
 
@@ -131,6 +139,14 @@ class ICardController extends Controller
         $cardId = $request->input('cardId');
 
         DB::connection('iCard')->table('cards')->where('id', $cardId)->where('userLogin', $userLogin)->update(['isDelete' => true]);
+
+        DB::connection('iCard')->table('log')->insertGetId(
+            [
+                'event' => 'Delete Card',
+                'action_table' => 'cards',
+                'action_id' => $userLogin
+            ]
+        );
 
         return response()->json(['status' => '200', 'event' => 'Delete Card', 'result' => true], 200);
     }
