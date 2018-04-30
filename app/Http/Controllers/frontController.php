@@ -73,10 +73,19 @@ class frontController extends Controller
         $box->draw($card['nameEN'] . ' ' . $card['lastnameEN']);
 
         //Position
+
+        $position = $card['position'];
+
+        if(strlen($position) > 33 && strlen($position) <= 57){
+            $box->setFontSize(54);
+        }else if(strlen($position) > 57){
+            $box->setFontSize(45);            
+        }
+
         $box->setFontColor(new Color(0, 102, 178));
         $box->setFontFace($font_locate . 'fonts/THSarabunNew Bold.ttf');
         $box->setBox(145, 280, 1200, 460);
-        $box->draw($card['position']);
+        $box->draw($position);
 
         //////////////////////////////////////////////////////////////////////////////
 
