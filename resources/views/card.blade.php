@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>QR LAB</title>
     <link rel="stylesheet" href="{{\Library\Util::asset('/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{\Library\Util::asset('\vendor\font-awesome\css\font-awesome.min.css')}}">
     <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
     <style>
       
@@ -44,37 +45,34 @@
     </style>
 </head>
 <body>  
-    <h1 class="text-center title p-3">Business Card</h1>
+    <h1 class="text-center title p-3">E-Business Card</h1>
         
     <div class="container">
         <div class="card p-1">
-        <img src="{{\Library\Util::asset('/card/image/' . $id)}}" alt="" width="100%" id="card"  style="display: block;">  
-        <div id="canvas"></div>
-        {{--  LogoImage  
-        <div style="display:none;">
-            <img src="/images/company/MCC.png"  id ="logoImage"/>
-        </div>--}}
-
         <div class="card-block">
-            
-            <!-- IMG Insert Here  -->
-            <div class="m-1 p-1">
-                <div class="btn-panel p-1 float-left">
-                    <!-- BUTTON!!! -->
-                    <img src="{{\Library\Util::asset('/images/geature.svg')}}" alt="Tab+Hold to save Card" width="100%"/>   
-
+                <!-- IMG Insert Here  -->
+                <div class="m-1 p-1">
+                    <a class="btn btn-primary" href="{{\Library\Util::asset('/vcard/' . $id)}}"><i class="fa fa-address-book mr-1" aria-hidden="true"></i> Save this contact to my phone</a>
                 </div>
-                <p class="float-left p-1 m-1">Tab + Hold to save card</p>
             </div>
-        </div>
+
+            <!-- Card  -->
+            <img src="{{\Library\Util::asset('/card/image/' . $id)}}" alt="" width="100%" id="card"  style="display: block;">  
+
+            <div class="card-block">
+                <!-- IMG Insert Here  -->
+                <div class="m-1 p-1">
+                    <div class="btn-panel p-1 float-left">
+                        <!-- BUTTON!!! -->
+                        <img src="{{\Library\Util::asset('/images/geature.svg')}}" alt="Tab+Hold to save Card" width="100%"/>   
+
+                    </div>
+                    <p class="float-left p-1 m-1">กดค้างที่รูปเพื่อ Save</p>
+                </div>
+            </div>
         </div>
     </div>
    
 </body>
-<script
-  src="https://code.jquery.com/jquery-3.3.1.js"
-  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-  crossorigin="anonymous"></script>
-
 </html>
 

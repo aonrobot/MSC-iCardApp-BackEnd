@@ -13,6 +13,8 @@ use App\Http\Controllers\ICardController;
 
 use Illuminate\Support\Facades\DB as DB;
 
+use JeroenDesloovere\VCard\VCard;
+
 class frontController extends Controller
 {
     /**
@@ -27,6 +29,39 @@ class frontController extends Controller
 
     public function card($id){
         return view('card', ['id' => $id]);  
+    }
+
+    public function vcard($id){
+        $card = DB::connection('iCard')->table('cards')->where('id', $id)->first();
+        $info = DB::table('EmployeeNew')->where('login', $card->userLogin)->first();
+        $company_name = DB::connection('iCard')->table('company')->where('company_code', $card->company)->first(['company_name'])->company_name;
+        //print_r($company_name);return 0;
+
+        $vcard = new VCard();
+
+        $lastname =$info->LastNameEng;
+        $firstname = $info->FirstNameEng;
+        $additional = '';
+        $prefix = $info->TitleEng;
+        $suffix = '';
+
+        // add personal data
+        $vcard->addName($lastname, $firstname, $additional, $prefix, $suffix);       
+        // add work data
+        $vcard->addCompany($company_name);
+        $vcard->addJobtitle($card->position);
+        //$vcard->addRole('Data Protection Officer');
+        $vcard->addEmail(strtolower($card->email));
+        $vcard->addPhoneNumber($card->contactTel, 'WORK');
+        $vcard->addPhoneNumber($card->contactFax, 'FAX');
+        $vcard->addPhoneNumber($card->contactDir, 'CELL');
+        $vcard->addAddress('400', null, 'Chalermprakiat Rama IX Road', 'Nong Bon', 'Prawet', '10250', 'Bangkok');
+        $vcard->addLabel('street, worktown, workpostcode Belgium');
+        $vcard->addURL('http://www.metrosystems.co.th');
+
+        // return vcard as a download
+        return $vcard->download();
+
     }
 
     public function cardImage($id){

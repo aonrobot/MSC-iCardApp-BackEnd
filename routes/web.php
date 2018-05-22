@@ -23,6 +23,7 @@ $router->get('/download', function(){
 });
 
 $router->get('/card/{id}', ['uses' => 'frontController@card']);
+$router->get('/vcard/{id}', ['uses' => 'frontController@vcard']);
 $router->get('/card/image/{id}', ['uses' => 'frontController@cardImage']);
 
 
@@ -31,7 +32,17 @@ $router->group(['prefix' => 'api'], function() use ($router){
     $router->get('employee/{login}', ['uses' => 'EmployeeController@info']);
 
     $router->get('company', ['uses' => 'CompanyController@all']);
+    $router->get('company/{login}', ['uses' => 'CompanyController@show']);
     
+});
+
+$router->group(['prefix' => 'portal'], function() use ($router){
+    $router->get('update/ios', function(){
+        return redirect('https://install.appcenter.ms/users/auttawir/apps/ios-icarddemo/distribution_groups/dev%20public');
+    });
+    $router->get('update/android', function(){
+        return redirect('https://install.appcenter.ms/users/auttawir/apps/android-icarddemo/distribution_groups/dev%20public');
+    });
 });
 
 //ldap API
